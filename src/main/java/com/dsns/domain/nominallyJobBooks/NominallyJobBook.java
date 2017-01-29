@@ -1,5 +1,6 @@
 package com.dsns.domain.nominallyJobBooks;
 
+import com.dsns.domain.Staff;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.dsns.domain.Region;
 import lombok.Data;
@@ -32,6 +33,6 @@ public class NominallyJobBook {
     private String code;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Worker> workers;
+    private List<Position> positions;
 
 }

@@ -1,5 +1,6 @@
 package com.dsns.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,7 @@ public class PremiumFine {
 	@Column(name = "premiumFineOrder")
 	private String order;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "deadlines")
 	private Date orderDate;
 

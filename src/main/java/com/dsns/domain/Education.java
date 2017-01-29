@@ -24,4 +24,7 @@ public class Education implements Serializable {
 
 	private String language;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<StuffDocuments> stuffDocuments;
+
 }

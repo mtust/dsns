@@ -1,6 +1,7 @@
 package com.dsns.domain;
 
 
+import com.dsns.domain.nominallyJobBooks.Position;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,8 @@ public class MainStaff {
 	@Column(name = "dateOfBirth")
 	private Date dateOfBirth;
 
-	@Column(name = "position")
-	private String position;
+	@OneToOne
+	private Position position;
 
 	/**
 	 *номер дата присвоєння спеціальних звань
@@ -42,6 +43,7 @@ public class MainStaff {
 	/**
 	 *номер дата присвоєння спеціальних звань
 	 */
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "dateConferringSpecRanks")
 	private Date dateConferringSpecRanks;
 
@@ -58,6 +60,7 @@ public class MainStaff {
 	/**
 	 *Дати контракту: «з»
 	 */
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "contractFromDate")
 	private Date contractFromDate;
 	/**

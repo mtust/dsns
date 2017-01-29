@@ -1,6 +1,7 @@
 package com.dsns.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -17,7 +18,8 @@ public class Fired {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "dateFired")
 	private Date dateFiring;
 	

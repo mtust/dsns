@@ -20,6 +20,7 @@ public class Benefits {
 	@Column(name = "name")
 	private String name;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name = "fromDate")
 	private Date fromDate;
 

@@ -37,11 +37,20 @@ public class JwtFilter extends GenericFilterBean {
 
         HttpServletResponse response = (HttpServletResponse) res;
 
-        if(!"OPTIONS".equals(request.getMethod()) && request.getContextPath().contains("api/")){
+        log.info("in filter");
+
+        log.info("request method: " + request.getMethod());
+        log.info("contextPath " + request.getContextPath());
+        log.info("request: " + request.getRequestURI());
+        if(!"OPTIONS".equals(request.getMethod()) && (request.getContextPath().contains("api/") || request.getRequestURI().contains("api/")) ){
             response.addHeader("Access-Control-Allow-Origin", "*");
 
+
             final String authHeader = request.getHeader("Authorization");
+            log.info("header: " + authHeader);
+
             if (authHeader == null || !authHeader.startsWith("OAuth ")) {
+                log.warn("Missing or invalid Authorization header.");
                 throw new ServletException("Missing or invalid Authorization header.");
             }
 
@@ -53,6 +62,7 @@ public class JwtFilter extends GenericFilterBean {
                 claims = Jwts.parser().setSigningKey("secretkey")
                         .parseClaimsJws(token).getBody();
                 request.setAttribute("claims", claims);
+                log.info("claims: " + claims);
             } catch (final SignatureException e) {
                 log.warn(e.getMessage());
                 throw new GeneralServiceException("Invalid token.");
@@ -60,6 +70,8 @@ public class JwtFilter extends GenericFilterBean {
 
             Role role = Role.valueOf((String) claims.get("role"));
             request.setAttribute("role", role);
+
+            log.info("role: " + role.toString());
 
             log.info("filter:");
 

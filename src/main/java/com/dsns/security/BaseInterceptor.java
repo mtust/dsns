@@ -51,6 +51,7 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
                     checkPermissions(methodRoles, role);
 
                 } catch (Exception e) {
+                    log.warn(Response.Status.FORBIDDEN.getReasonPhrase());
                     throw new PermissionDeniedException(Response.Status.FORBIDDEN.getReasonPhrase());
                 }
             }
@@ -78,10 +79,13 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 
 
     private void checkPermissions(List<Role> allowedRoles, Role userRole) throws Exception {
+        log.info("check permisions");
         if (allowedRoles.isEmpty()) {
+            log.info("all roles");
             return;
         } else {
             if (userRole == null || !allowedRoles.contains(userRole)) {
+                log.warn("this user have't role");
                 throw new PermissionDeniedException("this user have't role");
             }
         }
